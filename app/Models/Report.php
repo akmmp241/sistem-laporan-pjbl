@@ -13,6 +13,13 @@ class Report extends Model
 
     protected $table = 'reports';
 
+    protected $fillable = [
+        'task_id',
+        'user_id',
+        'type',
+        'date',
+    ];
+
     public function task(): HasOne
     {
         return $this->hasOne(Task::class, 'task_id', 'id');

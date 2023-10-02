@@ -13,6 +13,12 @@ class Task extends Model
 
     protected $table = 'tasks';
 
+    protected $fillable = [
+        'dudi_id',
+        'image',
+        'detail'
+    ];
+
     public function dudi(): HasOne
     {
         return $this->hasOne(Dudi::class, 'dudi_id', 'id');

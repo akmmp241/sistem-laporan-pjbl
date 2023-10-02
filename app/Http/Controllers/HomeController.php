@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ReportCollection;
 use App\Models\Report;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
@@ -12,10 +13,12 @@ class HomeController extends Controller
     public function index(): View
     {
         $user = Auth::user();
-        $activities = Report::query()->where('user_id', $user->id);
+        $activities = Report::query()->where('user_id', $user->id)
+            ->orderByDesc('id')->limit(3)->get();
+
         return view('home', [
             "user" => $user,
-            "activities" => $activities,
+            "activities" => new ReportCollection($activities),
         ]);
     }
 }

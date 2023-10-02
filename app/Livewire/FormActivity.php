@@ -2,12 +2,20 @@
 
 namespace App\Livewire;
 
+use App\Models\Dudi;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class FormActivity extends Component
 {
-    public function render()
+    public string $type;
+
+    public function render(): View
     {
-        return view('livewire.form-activity');
+        $dudis = Dudi::all();
+
+        return view('livewire.form-activity', [
+            "dudis" => $dudis
+        ]);
     }
 }

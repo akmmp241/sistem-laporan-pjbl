@@ -11,6 +11,10 @@
     <h3>selamat datang,</h3>
     <h1>{{ $user->name }}</h1>
 
+    @if(session()->has('message'))
+        <p>{{ session('message') }}</p>
+    @endif
+
     <a href="{{ route('checkin') }}">Masuk</a>
     <br>
     <a href="{{ route('checkout') }}">Keluar</a>

@@ -1,15 +1,23 @@
 <div>
     <form action="{{ request()->url() }}" method="POST" enctype="multipart/form-data">
+        @csrf
+
         <label for="detail">Rencana hari ini</label>
-        <input type="text" name="detail" id="detail" placeholder="Rencana hari ini">
+        <textarea name="detail" id="detail"
+                  placeholder="@if($type == "masuk") Rencana hari ini @else Pekerjaan hari ini @endif"></textarea>
         <br>
         <label for="date">Pilih tanggal</label>
-        <input type="datetime-local" name="date" id="date">
+        <input type="datetime-local" name="date" id="date" placeholder="{{ now() }}">
         <br>
+
+
         <label for="dudi">Pilih DUDI</label>
-        <select name="DUDI" id="DUDI">
-            <option value="1">DUDI1</option>
+        <select name="dudi" id="dudi">
+            @foreach($dudis as $key => $dudi)
+                <option value="{{ $dudi->id }}">{{ $key+1 }}. {{ $dudi->name }}</option>
+            @endforeach
         </select>
+
         <br>
         <label for="image">Upload foto</label>
         <p>maksimal 1mb</p>
