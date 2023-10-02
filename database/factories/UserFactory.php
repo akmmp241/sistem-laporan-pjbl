@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Dudi;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
@@ -17,12 +19,15 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $dudi = Dudi::query()->first();
+
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
+            'name' => 'Test User',
+            'role_id' => '1',
+            'dudi_id' => $dudi->id,
+            'username' => '10001',
+            'password' => Hash::make('10001'),
+            'class' => 'XI PPLG 2',
         ];
     }
 
