@@ -20,7 +20,7 @@
     <a href="{{ route('checkout') }}">Keluar</a>
 
     <h2>Aktivitas terkini</h2>
-    <a href="">log absensi</a>
+    <a href="{{ route('reports') }}">log absensi</a>
 
     @foreach($activities as $activity)
         <p>{{ $activity->date }}</p>

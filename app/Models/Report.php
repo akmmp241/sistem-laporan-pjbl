@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Report extends Model
@@ -12,6 +13,7 @@ class Report extends Model
     use HasFactory;
 
     protected $table = 'reports';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'task_id',
@@ -20,9 +22,9 @@ class Report extends Model
         'date',
     ];
 
-    public function task(): HasOne
+    public function task(): BelongsTo
     {
-        return $this->hasOne(Task::class, 'task_id', 'id');
+        return $this->belongsTo(Task::class, 'task_id', 'id');
     }
 
     public function user(): HasOne

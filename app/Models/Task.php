@@ -12,6 +12,7 @@ class Task extends Model
     use HasFactory;
 
     protected $table = 'tasks';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'dudi_id',
@@ -24,8 +25,8 @@ class Task extends Model
         return $this->hasOne(Dudi::class, 'dudi_id', 'id');
     }
 
-    public function report(): BelongsTo
+    public function report(): HasOne
     {
-        return $this->belongsTo(Report::class, 'task_id', 'id');
+        return $this->hasOne(Report::class, 'task_id', 'id');
     }
 }
