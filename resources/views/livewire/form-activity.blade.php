@@ -23,6 +23,6 @@
         <p>maksimal 1mb</p>
         <input type="file" name="image" id="image" placeholder="upload">
         <br>
-        <button type="submit">Submit</button>
+        <button type="submit" @if(auth()->user()->role_id === \App\Models\User::$ADMIN) disabled @endif >Submit</button>
     </form>
 </div>

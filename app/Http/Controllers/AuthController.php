@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -10,9 +11,12 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function login(): View
+    public function login(Request $request): View
     {
-        return view("student.login");
+        if ($request->url() === route('admin.login')) {
+            return view('admin.login');
+        }
+        return view("login");
     }
 
     public function submit(LoginRequest $request): RedirectResponse
@@ -21,6 +25,9 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            if (Auth::user()->role_id === User::$ADMIN) {
+                return redirect(route('admin.dashboard'));
+            }
             return redirect()->intended();
         }
 

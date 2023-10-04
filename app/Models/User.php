@@ -14,6 +14,9 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public static $ADMIN = 1;
+    public static $STUDENT = 2;
+
     protected $table = 'users';
 
     protected $fillable = [

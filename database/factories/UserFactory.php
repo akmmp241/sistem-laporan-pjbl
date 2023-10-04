@@ -3,7 +3,9 @@
 namespace Database\Factories;
 
 use App\Models\Dudi;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -23,8 +25,9 @@ class UserFactory extends Factory
 
         return [
             'name' => 'Test User',
-            'role_id' => '1',
+            'role_id' => User::$STUDENT,
             'dudi_id' => $dudi->id,
+            'supervisor_id' => 1,
             'username' => '10001',
             'password' => Hash::make('10001'),
             'class' => 'XI PPLG 2',
