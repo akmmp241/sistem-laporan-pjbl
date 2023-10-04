@@ -16,7 +16,7 @@ class HomeController extends Controller
         $activities = Report::query()->where('user_id', $user->id)
             ->orderByDesc('id')->limit(3)->get();
 
-        return view('home', [
+        return view('student.home', [
             "user" => $user,
             "activities" => new ReportCollection($activities),
         ]);

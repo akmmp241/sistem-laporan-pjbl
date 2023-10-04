@@ -14,7 +14,7 @@ class ReportController extends Controller
     public function index(): View
     {
         $logs = Report::query()->where('user_id', Auth::user()->id)->orderByDesc('id')->get();
-        return view('log', [
+        return view('student.log', [
             'logs' => $logs
         ]);
     }

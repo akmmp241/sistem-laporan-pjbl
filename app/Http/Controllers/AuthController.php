@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     public function login(): View
     {
-        return view("login");
+        return view("student.login");
     }
 
     public function submit(LoginRequest $request): RedirectResponse

@@ -22,9 +22,9 @@ class User extends Authenticatable
         'password',
     ];
 
-    public function dudi(): HasOne
+    public function dudi(): BelongsTo
     {
-        return $this->hasOne(Dudi::class, 'dudi_id', 'id');
+        return $this->belongsTo(Dudi::class, 'dudi_id', 'id');
     }
 
     public function reports(): BelongsTo
