@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
@@ -37,6 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::controller(ReportController::class)->group(function () {
         Route::get('/reports', 'index')->name('reports');
     });
+
+    Route::get('/profile', [AccountController::class, 'index'])->name('profile');
 
     Route::get('/logout', [AuthController::class, 'logout']);
 });

@@ -16,7 +16,7 @@ class ActivityController extends Controller
     {
         $type = $request->url() === route('checkin') ? "masuk" : "keluar";
 
-        return view('activity', ["type" => $type]);
+        return view('student.activity', ["type" => $type]);
     }
 
     public function submit(AddTaskRequest $request): RedirectResponse
