@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('supervisors', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->string('name')->nullable(false);
             $table->string('NIP')->nullable();
-            $table->string('username')->nullable(false);
-            $table->string('password')->nullable(false);
             $table->timestamps();
         });
     }

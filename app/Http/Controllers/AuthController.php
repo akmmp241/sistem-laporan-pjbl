@@ -13,9 +13,6 @@ class AuthController extends Controller
 {
     public function login(Request $request): View
     {
-        if ($request->url() === route('admin.login')) {
-            return view('admin.login');
-        }
         return view("login");
     }
 
@@ -25,10 +22,13 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            if (Auth::user()->role_id === User::$ADMIN) {
-                return redirect(route('admin.dashboard'));
-            }
-            return redirect()->intended();
+
+            return match (Auth::user()->role_id) {
+                User::$ADMIN => redirect(route('admin.dashboard')),
+                User::$STUDENT => redirect(route('student.home')),
+                User::$SUPERVISOR => redirect(route('supervisor.home')),
+                default => redirect()->intended(),
+            };
         }
 
         return redirect()->back()->withErrors([

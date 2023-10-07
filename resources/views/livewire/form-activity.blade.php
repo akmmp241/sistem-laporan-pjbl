@@ -7,7 +7,7 @@
                   placeholder="@if($type == "masuk") Rencana hari ini @else Pekerjaan hari ini @endif"></textarea>
         <br>
         <label for="date">Pilih tanggal</label>
-        <input type="datetime-local" name="date" id="date" placeholder="{{ now() }}">
+        <input type="date" name="date" id="date" placeholder="{{ now() }}">
         <br>
 
 

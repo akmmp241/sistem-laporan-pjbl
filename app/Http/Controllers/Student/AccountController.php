@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Student;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {
     public function index(): View
     {
-        $student = User::query()->where('id', Auth::user()->id)->first();
+        $student = Auth::user()->student;
         return view('student.profile', [
             'student' => $student
         ]);

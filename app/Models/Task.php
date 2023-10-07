@@ -12,21 +12,27 @@ class Task extends Model
     use HasFactory;
 
     protected $table = 'tasks';
-    protected $primaryKey = 'id';
 
     protected $fillable = [
         'dudi_id',
         'image',
-        'detail'
+        'detail',
+        'date',
+        'student_id'
     ];
-
-    public function dudi(): HasOne
-    {
-        return $this->hasOne(Dudi::class, 'dudi_id', 'id');
-    }
 
     public function report(): HasOne
     {
         return $this->hasOne(Report::class, 'task_id', 'id');
+    }
+
+    public function student(): BelongsTo
+    {
+        return $this->belongsTo(Student::class, 'student_id', 'id');
+    }
+
+    public function dudi(): BelongsTo
+    {
+        return $this->belongsTo(Dudi::class, 'dudi_id', 'id');
     }
 }

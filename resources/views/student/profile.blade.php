@@ -14,8 +14,9 @@
 <ul>
     <li>Nama: {{ $student->name }}</li>
     <li>Kelas: {{ $student->class }}</li>
-    <li>NIS (username): {{ $student->username }}</li>
+    <li>NIS (username): {{ $student->nis }}</li>
     <li>DUDI: {{ $student->dudi->name }}</li>
+    <li>Pembimbing: {{ $student->supervisor->name }}</li>
 </ul>
 
 </body>

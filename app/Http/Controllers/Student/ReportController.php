@@ -1,19 +1,21 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Student;
 
-use App\Http\Resources\LogCollection;
-use App\Http\Resources\ReportCollection;
+use App\Http\Controllers\Controller;
 use App\Models\Report;
+use App\Models\Task;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ReportController extends Controller
 {
     public function index(): View
     {
-        $logs = Report::query()->where('user_id', Auth::user()->id)->orderByDesc('id')->get();
+        $logs = Task::query()
+            ->where('student_id', Auth::user()->student->id)
+            ->orderByDesc('id')
+            ->get();
         return view('student.log', [
             'logs' => $logs
         ]);

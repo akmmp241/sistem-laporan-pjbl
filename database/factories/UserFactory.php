@@ -24,8 +24,7 @@ class UserFactory extends Factory
         $dudi = Dudi::query()->first();
 
         return [
-            'name' => 'Test User',
-            'role_id' => User::$STUDENT,
+            'name' => fake()->name(),
             'dudi_id' => $dudi->id,
             'supervisor_id' => 1,
             'username' => '10001',

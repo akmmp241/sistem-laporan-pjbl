@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('task_id')->nullable(false);
-            $table->unsignedBigInteger('user_id')->nullable(false);
+            $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId('task_id')->references('id')->on('tasks');
             $table->string('type')->nullable(false);
             $table->timestamps();
         });

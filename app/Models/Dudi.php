@@ -13,13 +13,17 @@ class Dudi extends Model
 
     protected $table = 'dudis';
 
-    public function tasks(): BelongsTo
+    protected $fillable = [
+        'name'
+    ];
+
+    public function students(): HasMany
     {
-        return $this->belongsTo(Task::class, 'dudi_id', 'id');
+        return $this->hasMany(Student::class, 'dudi_id', 'id');
     }
 
-    public function users(): HasMany
+    public function tasks(): HasMany
     {
-        return $this->hasMany(User::class, 'user_id', 'id');
+        return $this->hasMany(Task::class, 'dudi_id', 'id');
     }
 }

@@ -17,7 +17,10 @@ class SupervisorFactory extends Factory
     public function definition(): array
     {
         return [
-            ''
+            'name' => fake()->name(),
+            'NIP' => fake()->randomNumber(10),
+            'username' => fake()->userName(),
+            'password' => bcrypt('password')
         ];
     }
 }

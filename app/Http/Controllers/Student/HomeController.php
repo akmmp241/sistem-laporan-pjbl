@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Student;
 
+use App\Http\Controllers\Controller;
 use App\Http\Resources\ReportCollection;
 use App\Models\Report;
-use App\Models\User;
+use App\Models\Student;
+use App\Models\Task;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,12 +14,14 @@ class HomeController extends Controller
 {
     public function index(): View
     {
-        $user = Auth::user();
-        $activities = Report::query()->where('user_id', $user->id)
-            ->orderByDesc('id')->limit(3)->get();
+        $activities = Task::query()
+            ->where('student_id', Auth::user()->student->id)
+            ->orderByDesc('date')
+            ->limit(3)
+            ->get();
 
         return view('student.home', [
-            "user" => $user,
+            "user" => Auth::user(),
             "activities" => new ReportCollection($activities),
         ]);
     }

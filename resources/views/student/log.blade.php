@@ -13,33 +13,42 @@
 
 <h1>Log Absensi</h1>
 
-@foreach($logs as $log)
-    <div id="modalToggle" style="cursor: pointer;"
-         data-modal-target="small-modal"
-         data-modal-toggle="small-modal"
-         data-modal-type="{{ $log->type }}"
-         data-modal-time="{{ date_create($log->date)->format('H:i:s') }}"
-         data-modal-detail="{{ $log->task->detail }}"
-         data-modal-image="{{ $log->task->image }}">
-        <h3>{{ date_create($log->date)->format('d M Y') }} - {{ $log->type }}</h3>
+@foreach($logs as $key => $log)
+    <div>
+        <h3>{{ date_create($log->date)->format('d M Y') }} - {{ $log->report->type }}</h3>
         <p>{{ date_create($log->date)->format('H:i:s')}}</p>
+        <div id="modalToggle-{{ $key }}" class="cursor-pointer"
+             data-modal-target="small-modal"
+             data-modal-toggle="small-modal"
+             data-modal-type="{{ $log->report->type }}"
+             data-modal-time="{{ date_create($log->date)->format('H:i:s') }}"
+             data-modal-detail="{{ $log->detail }}"
+             data-modal-image="{{ asset($log->image) }}">
+          lihat detail
+        </div>
     </div>
 @endforeach
 
 <livewire:log-modal />
 
-
 <script>
-    const modalToggle = document.querySelector('#modalToggle');
     const title = document.querySelector('#title');
     const time = document.querySelector('#time');
     const detail = document.querySelector('#detail');
     const image = document.querySelector('#image');
 
-    title.innerHTML = modalToggle.getAttribute('data-modal-type');
-    time.innerHTML = modalToggle.getAttribute('data-modal-time');
-    detail.innerHTML = modalToggle.getAttribute('data-modal-detail');
-    image.src = modalToggle.getAttribute('data-modal-image');
+    window.onclick = e => {
+      try {
+        const toggleModal = document.querySelector('#' + e.target.id);
+
+        title.innerHTML = toggleModal.getAttribute('data-modal-type');
+        time.innerHTML = toggleModal.getAttribute('data-modal-time');
+        detail.innerHTML = toggleModal.getAttribute('data-modal-detail');
+        image.src = toggleModal.getAttribute('data-modal-image');
+      } catch (exception) {
+
+      }
+    }
 </script>
 
 @livewireScripts

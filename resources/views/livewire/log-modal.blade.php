@@ -1,4 +1,4 @@
-<div id="small-modal" tabindex="-1"
+<div id="small-modal" tabindex="-1" aria-hidden="true"
      class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative w-full max-w-md max-h-full">
         <!-- Modal content -->
@@ -7,7 +7,7 @@
             <div class="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
                 <h3 class="flex flex-col text-xl font-medium text-gray-900 dark:text-white">
                     <span id="title"></span>
-                    <span class="text-base text-gray-500 -mb-3" id="time">waw</span>
+                    <span class="text-base text-gray-500 -mb-3" id="time"></span>
                 </h3>
                 <button type="button"
                         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"

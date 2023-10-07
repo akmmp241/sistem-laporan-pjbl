@@ -15,7 +15,8 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     public static $ADMIN = 1;
-    public static $STUDENT = 2;
+    public static $SUPERVISOR = 2;
+    public static $STUDENT = 3;
 
     protected $table = 'users';
 
@@ -25,13 +26,13 @@ class User extends Authenticatable
         'password',
     ];
 
-    public function dudi(): BelongsTo
+    public function supervisor(): HasOne
     {
-        return $this->belongsTo(Dudi::class, 'dudi_id', 'id');
+        return $this->hasOne(Supervisor::class, 'user_id', 'id');
     }
 
-    public function reports(): BelongsTo
+    public function student(): HasOne
     {
-        return $this->belongsTo(Report::class, 'user_id', 'id');
+        return $this->hasOne(Student::class, 'user_id', 'id');
     }
 }

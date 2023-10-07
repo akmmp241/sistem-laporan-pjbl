@@ -15,12 +15,16 @@
         <p>{{ session('message') }}</p>
     @endif
 
-    <a href="{{ route('checkin') }}">Masuk</a>
+    <a href="{{ route('student.checkin') }}">Masuk</a>
     <br>
-    <a href="{{ route('checkout') }}">Keluar</a>
+    <a href="{{ route('student.checkout') }}">Keluar</a>
+    <br>
+    <a href="{{ route('student.profile') }}">Profil</a>
+    <br>
+    <a href="{{ route('logout') }}">Logout</a>
 
     <h2>Aktivitas terkini</h2>
-    <a href="{{ route('reports') }}">log absensi</a>
+    <a href="{{ route('student.reports') }}">log absensi</a>
 
     @foreach($activities as $activity)
         <p>{{ $activity->date }}</p>
