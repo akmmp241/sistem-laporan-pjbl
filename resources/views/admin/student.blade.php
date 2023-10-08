@@ -55,7 +55,7 @@
             <button id="updateModal-{{ $key }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                     data-modal-target="update-modal"
                     data-modal-toggle="update-modal"
-                    data-modal-id="{{ $student->user->id }}"
+                    data-modal-id="{{ $student->id }}"
                     data-modal-name="{{ $student->name }}"
                     data-modal-nis="{{ $student->nis }}"
                     data-modal-class="{{ $student->class }}"

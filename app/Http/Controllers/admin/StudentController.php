@@ -28,9 +28,30 @@ class StudentController extends Controller
 
     public function create(CreateStudentRequest $request): RedirectResponse
     {
+        $data = $request->validated();
+
         try {
-            $this->studentCreateOrUpdate($request);
+            DB::beginTransaction();
+
+            $user = new User();
+            $user->role_id = User::$STUDENT;
+            $user->name = $data['name'];
+            $user->username = $data['nis'];
+            $user->password = bcrypt($data['nis']);
+            $user->save();
+
+            $student = new Student();
+            $student->supervisor_id = $data['supervisor'];
+            $student->dudi_id = $data['dudi'];
+            $student->nis = $data['nis'];
+            $student->name = $data['name'];
+            $student->class = $data['class'];
+            $user->student()->save($student);
+
+            DB::commit();
         } catch (Exception $exception) {
+            DB::rollBack();
+            $request->session()->put(['failed' => "Gagal mengubah data"]);
             return redirect()->back();
         }
 
@@ -41,9 +62,26 @@ class StudentController extends Controller
 
     public function update(UpdateStudentRequest $request): RedirectResponse
     {
+        $data = $request->validated();
+
         try {
-            $this->studentCreateOrUpdate($request);
+            DB::beginTransaction();
+
+            $student = Student::query()->find($data['id']);
+            $student->supervisor_id = $data['supervisor'];
+            $student->dudi_id = $data['dudi'];
+            $student->nis = $data['nis'];
+            $student->name = $data['name'];
+            $student->user->name = $data['name'];
+            $student->class = $data['class'];
+            $student->save();
+            $student->user->save();
+
+            DB::commit();
         } catch (Exception $exception) {
+            DB::rollBack();
+            ddd($exception->getMessage());
+            $request->session()->put(['failed' => "Gagal mengubah data"]);
             return redirect()->back();
         }
 
@@ -61,49 +99,6 @@ class StudentController extends Controller
             return redirect()->back()->with('success', 'Sukses menghapus data');
         } catch (Exception $exception) {
             return redirect()->back()->withErrors('Gagal menghapus data');
-        }
-    }
-
-    public function studentCreateOrUpdate(CreateStudentRequest|UpdateStudentRequest $request): ?RedirectResponse
-    {
-        $data = $request->validated();
-
-        try {
-            DB::beginTransaction();
-
-            $user = new User();
-            $student = new Student();
-            if ($request instanceof UpdateStudentRequest) {
-                $user = User::query()->find($data['id']);
-                $student = Student::query()->find($user->student->id);
-            }
-            $user->role_id = User::$STUDENT;
-            $user->name = $data['name'];
-            $user->username = $data['nis'];
-            $user->password = bcrypt($data['nis']);
-            $user->save();
-
-            $student->supervisor_id = $data['supervisor'];
-            $student->dudi_id = $data['dudi'];
-            $student->nis = $data['nis'];
-            $student->name = $data['name'];
-            $student->class = $data['class'];
-            $student->save();
-
-            DB::commit();
-            return null;
-        } catch (Exception $exception) {
-            DB::rollBack();
-
-            Log::warning($exception->getMessage());
-
-            $message = match ($request::class) {
-                CreateStudentRequest::class => "Gagal menambahkan data",
-                UpdateStudentRequest::class => "Gagal mengubah data"
-            };
-
-            $request->session()->put(['failed' => $message]);
-            throw $exception;
         }
     }
 }
