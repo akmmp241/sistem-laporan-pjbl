@@ -54,9 +54,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/checkin', 'submit');
             Route::post('/checkout', 'submit');
         });
-        Route::controller(ReportController::class)->group(function () {
-            Route::get('/reports', 'index')->name('reports');
-        });
+        Route::get('/reports', [ReportController::class, 'index'])->name('reports');
         Route::get('/profile', [AccountController::class, 'index'])->name('profile');
     });
 
@@ -69,12 +67,12 @@ Route::middleware(['auth'])->group(function () {
     /* Route For Admin */
     Route::middleware(['admin'])->prefix('/admin')->name('admin.')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-        Route::get('/students', [StudentController::class, 'index'])->name('students');
-        Route::post('/students', [StudentController::class, 'create']);
-//        Route::controller(StudentController::class)->group(function () {
-//            Route::get('/students', 'index')->name('students');
-//            Route::post('/students', 'addStudent');
-//        });
+        Route::controller(StudentController::class)->group(function () {
+            Route::get('/students', 'index')->name('students');
+            Route::post('/students', 'create');
+            Route::put('/students', 'update');
+            Route::delete('/students', 'delete');
+        });
     });
 
     /* Logout */

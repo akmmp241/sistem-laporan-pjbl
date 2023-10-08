@@ -8,12 +8,16 @@
 
   @if(session('errors'))
     @foreach(session('errors')->all() as $key => $message)
-      <x-alert.failed :$message :$key />
+      <x-alert.failed :$message :$key/>
     @endforeach
   @endif
 
+  @if(session('failed'))
+    <livewire:alert.failed :message="session('failed')"/>
+  @endif
+
   @if(session('success'))
-    <x-alert.success :message=" session('success') " />
+    <x-alert.success :message=" session('success') "/>
   @endif
 
   <!-- Modal toggle -->
@@ -24,7 +28,7 @@
   </button>
 
   {{-- Add User Modal --}}
-  <x-form.add-student-modal :$dudis :$supervisors />
+  <x-form.add-student-modal :$dudis :$supervisors/>
 
   {{-- Table --}}
   <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -40,7 +44,7 @@
       </tr>
       </thead>
       <tbody>
-      @foreach($students as $student)
+      @foreach($students as $key => $student)
         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
           <th scope="row" class="px-6 py-4">{{ $student->name }}</th>
           <th scope="row" class="px-6 py-4">{{ $student->nis }}</th>
@@ -48,13 +52,62 @@
           <td class="px-6 py-4">{{ $student->dudi->name }}</td>
           <td class="px-6 py-4">{{ $student->supervisor->name }}</td>
           <td class="px-6 py-4 flex gap-2">
-            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+            <button id="updateModal-{{ $key }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                    data-modal-target="update-modal"
+                    data-modal-toggle="update-modal"
+                    data-modal-id="{{ $student->user->id }}"
+                    data-modal-name="{{ $student->name }}"
+                    data-modal-nis="{{ $student->nis }}"
+                    data-modal-class="{{ $student->class }}"
+                    data-modal-dudi="{{ $student->dudi->id }}"
+                    data-modal-supervisor="{{ $student->supervisor->id }}">Edit
+            </button>
             <span>|</span>
-            <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Hapus</a>
+            <form action="{{ route('admin.students') }}" method="POST">
+              @csrf
+              @method('DELETE')
+              <input type="hidden" name="id" value="{{ $student->id }}">
+              <button type="submit" onclick="return window.confirm('apakah anda yakin ingin menghapus?')"
+                      class="font-medium text-red-600 dark:text-red-500 hover:underline">Hapus
+              </button>
+            </form>
           </td>
         </tr>
       @endforeach
       </tbody>
     </table>
+
+    {{--  Form Modal  --}}
+    <x-form.update-student-modal :$dudis :$supervisors id="waw"/>
+
+    <script>
+      const getElement = (value) => {
+        return document.querySelector('#' + value);
+      }
+
+      const id = getElement('id');
+      const name = getElement('name');
+      const nis = getElement('nis');
+      const Class = getElement('class');
+      const dudi = getElement('dudi');
+      const supervisor = getElement('supervisor');
+
+      window.onclick = e => {
+        try {
+          const toggleModal = document.querySelector('#' + e.target.id);
+
+          if (toggleModal.id.split('-')[0] === 'updateModal') {
+            id.value = toggleModal.getAttribute('data-modal-id');
+            name.value = toggleModal.getAttribute('data-modal-name');
+            nis.value = toggleModal.getAttribute('data-modal-nis');
+            Class.value = toggleModal.getAttribute('data-modal-class');
+            dudi.value = toggleModal.getAttribute('data-modal-dudi');
+            supervisor.value = toggleModal.getAttribute('data-modal-supervisor');
+          }
+        } catch (e) {
+        }
+      }
+    </script>
+
   </div>
 @endsection

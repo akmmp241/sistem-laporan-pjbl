@@ -149,7 +149,7 @@
   </div>
 </aside>
 
-<div class="p-4 h-screen dark:bg-gray-900 sm:ml-64">
+<div class="p-4 min-h-screen max-h-fit dark:bg-gray-900 sm:ml-64">
   <div class="p-4 dark:border-gray-700 mt-14">
     @yield('content')
   </div>
