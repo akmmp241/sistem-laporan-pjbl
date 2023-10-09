@@ -20,13 +20,6 @@
     <x-alert.success :message=" session('success') "/>
   @endif
 
-  <!-- Modal toggle -->
-  <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal"
-          class="block text-white mb-8 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs md:text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          type="button">
-    Tambah Siswa
-  </button>
-
   {{-- Add User Modal --}}
   <x-form.add-student-modal :$dudis :$supervisors/>
 
@@ -80,34 +73,8 @@
     {{--  Form Modal  --}}
     <x-form.update-student-modal :$dudis :$supervisors id="waw"/>
 
-    <script>
-      const getElement = (value) => {
-        return document.querySelector('#' + value);
-      }
-
-      const id = getElement('id');
-      const name = getElement('name');
-      const nis = getElement('nis');
-      const Class = getElement('class');
-      const dudi = getElement('dudi');
-      const supervisor = getElement('supervisor');
-
-      window.onclick = e => {
-        try {
-          const toggleModal = document.querySelector('#' + e.target.id);
-
-          if (toggleModal.id.split('-')[0] === 'updateModal') {
-            id.value = toggleModal.getAttribute('data-modal-id');
-            name.value = toggleModal.getAttribute('data-modal-name');
-            nis.value = toggleModal.getAttribute('data-modal-nis');
-            Class.value = toggleModal.getAttribute('data-modal-class');
-            dudi.value = toggleModal.getAttribute('data-modal-dudi');
-            supervisor.value = toggleModal.getAttribute('data-modal-supervisor');
-          }
-        } catch (e) {
-        }
-      }
-    </script>
+    {{-- JS --}}
+    <x-script.student-script/>
 
   </div>
 @endsection
