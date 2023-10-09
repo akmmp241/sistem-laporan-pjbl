@@ -87,6 +87,7 @@ class SupervisorController extends Controller
         try {
             $supervisor = Supervisor::query()->find($request->get('id'));
             $supervisor->delete();
+            $supervisor->user->delete();
             return redirect()->back()->with(['success' => "Sukses menghapus data"]);
         } catch (Exception $exception) {
             return redirect()->back()->withErrors(["failed" => "Gagal mengubah pembimbing"]);
