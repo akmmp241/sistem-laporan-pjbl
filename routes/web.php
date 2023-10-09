@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\DudiController;
 use App\Http\Controllers\admin\StudentController;
 use App\Http\Controllers\admin\SupervisorController;
 use App\Http\Controllers\AuthController;
@@ -81,6 +82,13 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/supervisors', 'create');
             Route::put('/supervisors', 'update');
             Route::delete('/supervisors', 'delete');
+        });
+        /* Dudi */
+        Route::controller(DudiController::class)->group(function () {
+            Route::get('/dudis', 'index')->name('dudis');
+            Route::post('/dudis', 'create');
+            Route::put('/dudis', 'update');
+            Route::delete('/dudis', 'delete');
         });
     });
 
