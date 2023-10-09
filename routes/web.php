@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\StudentController;
+use App\Http\Controllers\admin\SupervisorController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Student\AccountController;
 use App\Http\Controllers\Student\ActivityController;
@@ -67,11 +68,19 @@ Route::middleware(['auth'])->group(function () {
     /* Route For Admin */
     Route::middleware(['admin'])->prefix('/admin')->name('admin.')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+        /* Student */
         Route::controller(StudentController::class)->group(function () {
             Route::get('/students', 'index')->name('students');
             Route::post('/students', 'create');
             Route::put('/students', 'update');
             Route::delete('/students', 'delete');
+        });
+        /* Supervisor */
+        Route::controller(SupervisorController::class)->group(function () {
+            Route::get('/supervisors', 'index')->name('supervisors');
+            Route::post('/supervisors', 'create');
+            Route::put('/supervisors', 'update');
+            Route::delete('/supervisors', 'delete');
         });
     });
 
