@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* input[type="file"]{
+    display: none;
+} */
+
+.bg-popup{
+    @apply bg-[#A5B4FC] opacity-80
+}
+
+.bg-main{
+    @apply opacity-100
+}
