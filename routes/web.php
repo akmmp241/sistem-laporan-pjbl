@@ -93,5 +93,5 @@ Route::middleware(['auth'])->group(function () {
     });
 
     /* Logout */
-    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
 });

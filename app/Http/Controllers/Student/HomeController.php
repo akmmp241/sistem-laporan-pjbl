@@ -17,7 +17,7 @@ class HomeController extends Controller
         $activities = Task::query()
             ->where('student_id', Auth::user()->student->id)
             ->orderByDesc('date')
-            ->limit(3)
+            ->limit(4)
             ->get();
 
         return view('student.home', [

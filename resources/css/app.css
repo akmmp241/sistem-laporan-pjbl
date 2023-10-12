@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#content {
+    min-height: calc(100vh - 140px)!important;
+}
+
+.bg-popup{
+    @apply bg-[#A5B4FC] opacity-80
+}
+
+.bg-main{
+    @apply opacity-100
+}
+
+.btn-masuk, .btn-keluar {
+    @apply hover:shadow-none transition-all ease-in duration-300;
+    box-shadow: rgba(0, 0, 0, 0.3) 6px 6px 0, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}

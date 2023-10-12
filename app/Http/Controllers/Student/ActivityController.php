@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateStudentRequest;
+use App\Http\Requests\CreateTaskRequest;
 use App\Models\Report;
 use App\Models\Student;
 use App\Models\Task;
@@ -25,7 +26,7 @@ class ActivityController extends Controller
         return view('student.activity', ["type" => $type]);
     }
 
-    public function submit(CreateStudentRequest $request): RedirectResponse
+    public function submit(CreateTaskRequest $request): RedirectResponse
     {
         $data = $request->validated();
 
@@ -34,7 +35,6 @@ class ActivityController extends Controller
         $data['student_id'] = Student::query()->where('user_id', Auth::user()->id)->first()->id;
         $data['date'] = $data['date'] . ' ' . now()->format('H:i:s');
         $type = $request->url() === route('student.checkin') ? "masuk" : "keluar";
-
 
         try {
             DB::beginTransaction();
@@ -51,14 +51,14 @@ class ActivityController extends Controller
             DB::commit();
         } catch (Exception $exception) {
             DB::rollBack();
-            return redirect(route('student.home'))->with([
-                "message" => $exception->getMessage()
+            return redirect()->back()->with([
+                "failed" => "Gagal menambah laporan"
             ]);
         }
 
 
         return redirect(route('student.home'))->with([
-            "message" => "suskses menambah laporan"
+            "success" => "Sukses menambah laporan"
         ]);
     }
 }

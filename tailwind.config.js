@@ -10,7 +10,17 @@ export default {
         "./node_modules/flowbite/**/*.js"
     ],
     theme: {
-        extend: {},
+        extend: {
+            fontFamily: {
+                'jakarta' : ['Plus Jakarta Sans', 'sans']
+            },
+            blur: {
+                'main' : '2px'
+            },
+            colors: {
+                'primary' : '#4260EB'
+            }
+        },
     },
     plugins: [
         require('flowbite/plugin')
