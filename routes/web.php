@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\DudiController;
+use App\Http\Controllers\admin\ReportsController;
 use App\Http\Controllers\admin\StudentController;
 use App\Http\Controllers\admin\SupervisorController;
 use App\Http\Controllers\AuthController;
@@ -89,6 +90,9 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/dudis', 'create');
             Route::put('/dudis', 'update');
             Route::delete('/dudis', 'delete');
+        });
+        Route::controller(ReportsController::class)->group(function () {
+            Route::get('/reports', 'index')->name('reports');
         });
     });
 
